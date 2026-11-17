@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Calculator</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'Nunito',system-ui,sans-serif}
+a{text-decoration:none}
+.key{display:flex;align-items:center;justify-content:center;height:100%;min-height:56px;border:0;border-radius:18px;font-family:inherit;font-size:24px;font-weight:700;cursor:pointer;color:#1F2D2B}
+.kn{background:#FFFFFF}
+.ka{background:#E7ECEA}
+.ko{background:#DCEFEA;color:#17574E}
+.ke{background:#1A6F63;color:#FFFFFF}
+.kwide{grid-column:span 2}
+.step{display:flex;align-items:center;justify-content:center;width:44px;height:44px;border:2px solid #D9E2DF;border-radius:22px;background:#FFFFFF;font-family:inherit;font-size:22px;font-weight:800;color:#1F2D2B;cursor:pointer}
+a,button{transition:transform .18s ease,box-shadow .22s ease,background-color .22s ease,border-color .22s ease,filter .22s ease;-webkit-tap-highlight-color:transparent}
+a:active,button:active{transform:scale(.97)}
+a:hover,button:hover{filter:brightness(1.04)}
+.screen > *{animation:rise .5s cubic-bezier(.22,.7,.2,1) both}
+.screen > *:nth-child(1){animation-delay:.02s}
+.screen > *:nth-child(2){animation-delay:.07s}
+.screen > *:nth-child(3){animation-delay:.12s}
+.screen > *:nth-child(4){animation-delay:.17s}
+.screen > *:nth-child(5){animation-delay:.22s}
+.screen > *:nth-child(n+6){animation-delay:.26s}
+.screen > .scrim{animation:fade .25s ease both}
+.sheet{animation:slideUp .35s cubic-bezier(.22,.7,.2,1) both}
+.pop{animation:pop .3s cubic-bezier(.22,.7,.2,1) both}
+.float{animation:floaty 5s ease-in-out infinite}
+.grow{transform-origin:left center;animation:grow .9s cubic-bezier(.22,.7,.2,1) .25s both}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes slideUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+@keyframes pop{from{opacity:0;transform:translateY(4px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important}}
+</style>
+</helmet>
+<div class="screen" style="width: 390px; height: 844px; box-sizing: border-box; background: #F5F3EC; color: #1F2D2B; display: flex; flex-direction: column; position: relative; overflow: hidden">
+<div style="padding: 28px 24px 0; flex-shrink: 0">
+<h1 style="margin: 0; font-size: 30px; font-weight: 800; line-height: 1.15">Calculator</h1>
+</div>
+<div style="flex-shrink: 0; margin: 14px 24px 0; padding: 14px 20px; border-radius: 22px; background: #FFFFFF; display: flex; flex-direction: column; align-items: flex-end; gap: 2px; min-height: 104px; box-sizing: border-box; justify-content: flex-end">
+<span style="font-size: 16px; font-weight: 600; color: #5B6B67; min-height: 22px">{{ exprText }}</span>
+<span style="font-size: 48px; font-weight: 800; line-height: 1.1; letter-spacing: -1px; max-width: 100%; overflow: hidden">{{ display }}</span>
+</div>
+<div style="flex-shrink: 0; margin: 10px 24px 0; padding: 10px 14px 10px 16px; border-radius: 18px; background: #E8F2EE; display: flex; align-items: center; justify-content: space-between; gap: 8px">
+<div style="display: flex; align-items: center; gap: 8px">
+<svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#17574E" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19C3.5 15.8 6 14 9 14S14.5 15.8 14.5 19"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14.2C18.8 14 20.5 15.6 20.5 18.5"/></svg>
+<button type="button" class="step" aria-label="Fewer people" onClick="{{ fewer }}">−</button>
+<span style="min-width: 22px; text-align: center; font-size: 20px; font-weight: 800">{{ people }}</span>
+<button type="button" class="step" aria-label="More people" onClick="{{ more }}">+</button>
+</div>
+<div style="display: flex; flex-direction: column; align-items: flex-end"><span style="font-size: 13px; font-weight: 700; color: #31403D">Each pays</span><span style="font-size: 20px; font-weight: 800; color: #17574E">{{ eachText }}</span></div>
+</div>
+<div style="flex: 1; min-height: 0; margin: 12px 24px 12px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: minmax(0, 1fr); gap: 10px">
+<sc-for list="{{ keys }}" as="k" hint-placeholder-count="19">
+<button type="button" class="key {{ k.cls }}" aria-label="{{ k.aria }}" onClick="{{ k.press }}">{{ k.label }}</button>
+</sc-for>
+</div>
+<nav aria-label="Main" style="flex-shrink: 0; height: 76px; box-sizing: border-box; padding: 8px 16px 12px; background: #FFFFFF; border-top: 1px solid #E7ECEA; display: flex; justify-content: space-around; align-items: center; box-shadow: 0 -6px 18px rgba(31,45,43,0.05);">
+<a href="Home.dc.html" style="display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 72px; min-height: 48px; color: #5B6B67; font-size: 13px; font-weight: 700"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="14" rx="3"/><path d="M8 10H16M8 14H13"/></svg>Events</a>
+<a href="Calculator.dc.html" aria-current="page" style="display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 72px; min-height: 48px; color: #1A6F63; font-size: 13px; font-weight: 800"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="3"/><path d="M8.5 8H15.5M9 12.5H9.1M12 12.5H12.1M15 12.5H15.1M9 16.5H9.1M12 16.5H12.1M15 16.5H15.1"/></svg>Calculator</a>
+<a href="Settings.dc.html" style="display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 72px; min-height: 48px; color: #5B6B67; font-size: 13px; font-weight: 700"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 3V5.5M12 18.5V21M3 12H5.5M18.5 12H21M5.6 5.6L7.4 7.4M16.6 16.6L18.4 18.4M5.6 18.4L7.4 16.6M16.6 7.4L18.4 5.6"/></svg>Settings</a>
+</nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+state = { cur: '0', prev: null, op: null, fresh: false, done: false, expr: '', people: 4 };
+fmt(str) {
+const neg = str.charAt(0) === '-';
+const body = neg ? str.slice(1) : str;
+const parts = body.split('.');
+const whole = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+return (neg ? '-' : '') + whole + (parts.length > 1 ? '.' + parts[1] : '');
+}
+calc(a, op, b) {
+if (op === '+') return a + b;
+if (op === '−') return a - b;
+if (op === '×') return a * b;
+if (op === '÷') return b === 0 ? NaN : a / b;
+return b;
+}
+clean(n) {
+if (!isFinite(n)) return 'Error';
+return String(Math.round(n * 100000000) / 100000000);
+}
+renderVals() {
+const s = this.state;
+const set = (o) => this.setState(o);
+const digit = (d) => {
+if (s.cur === 'Error') { set({ cur: d, done: false, fresh: false, expr: '' }); return; }
+if (s.fresh || s.done) { set({ cur: d, fresh: false, done: false, expr: s.done ? '' : s.expr }); return; }
+if (s.cur.replace('-', '').replace('.', '').length >= 12) return;
+set({ cur: s.cur === '0' ? d : s.cur + d });
+};
+const dot = () => {
+if (s.fresh || s.done || s.cur === 'Error') { set({ cur: '0.', fresh: false, done: false, expr: s.done ? '' : s.expr }); return; }
+if (s.cur.indexOf('.') < 0) set({ cur: s.cur + '.' });
+};
+const op = (o) => {
+if (s.cur === 'Error') return;
+const val = parseFloat(s.cur);
+if (s.prev !== null && s.op && !s.fresh) {
+const r = this.calc(s.prev, s.op, val);
+set({ prev: isFinite(r) ? r : null, cur: this.clean(r), op: o, fresh: true, done: false, expr: this.fmt(this.clean(r)) + ' ' + o });
+} else {
+set({ prev: val, op: o, fresh: true, done: false, expr: this.fmt(s.cur) + ' ' + o });
+}
+};
+const eq = () => {
+if (s.cur === 'Error' || s.prev === null || !s.op) return;
+const val = parseFloat(s.cur);
+const r = this.calc(s.prev, s.op, val);
+set({ cur: this.clean(r), expr: this.fmt(this.clean(s.prev)) + ' ' + s.op + ' ' + this.fmt(s.cur) + ' =', prev: null, op: null, fresh: false, done: true });
+};
+const clear = () => set({ cur: '0', prev: null, op: null, fresh: false, done: false, expr: '' });
+const back = () => {
+if (s.fresh || s.done || s.cur === 'Error') return;
+set({ cur: s.cur.length > 1 && !(s.cur.length === 2 && s.cur.charAt(0) === '-') ? s.cur.slice(0, -1) : '0' });
+};
+const pct = () => {
+if (s.cur === 'Error') return;
+set({ cur: this.clean(parseFloat(s.cur) / 100), done: false });
+};
+const mk = (label, cls, press, aria) => ({ label, cls, press, aria });
+const keys = [
+mk('C', 'ka', clear, 'Clear'), mk('⌫', 'ka', back, 'Delete'), mk('%', 'ka', pct, 'Percent'), mk('÷', 'ko', () => op('÷'), 'Divide'),
+mk('7', 'kn', () => digit('7'), '7'), mk('8', 'kn', () => digit('8'), '8'), mk('9', 'kn', () => digit('9'), '9'), mk('×', 'ko', () => op('×'), 'Multiply'),
+mk('4', 'kn', () => digit('4'), '4'), mk('5', 'kn', () => digit('5'), '5'), mk('6', 'kn', () => digit('6'), '6'), mk('−', 'ko', () => op('−'), 'Subtract'),
+mk('1', 'kn', () => digit('1'), '1'), mk('2', 'kn', () => digit('2'), '2'), mk('3', 'kn', () => digit('3'), '3'), mk('+', 'ko', () => op('+'), 'Add'),
+mk('0', 'kn kwide', () => digit('0'), '0'), mk('.', 'kn', dot, 'Decimal point'), mk('=', 'ke', eq, 'Equals')
+];
+const value = parseFloat(s.cur);
+const each = isFinite(value) ? value / s.people : 0;
+const money = (n) => '₱' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+return {
+keys,
+exprText: s.expr,
+display: s.cur === 'Error' ? 'Error' : this.fmt(s.cur),
+people: String(s.people),
+eachText: money(each),
+fewer: () => set({ people: Math.max(1, s.people - 1) }),
+more: () => set({ people: Math.min(99, s.people + 1) })
+};
+}
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Home, first time</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'Nunito',system-ui,sans-serif}
+a{text-decoration:none}
+a,button{transition:transform .18s ease,box-shadow .22s ease,background-color .22s ease,border-color .22s ease,filter .22s ease;-webkit-tap-highlight-color:transparent}
+a:active,button:active{transform:scale(.97)}
+a:hover,button:hover{filter:brightness(1.04)}
+.screen > *{animation:rise .5s cubic-bezier(.22,.7,.2,1) both}
+.screen > *:nth-child(1){animation-delay:.02s}
+.screen > *:nth-child(2){animation-delay:.07s}
+.screen > *:nth-child(3){animation-delay:.12s}
+.screen > *:nth-child(4){animation-delay:.17s}
+.screen > *:nth-child(5){animation-delay:.22s}
+.screen > *:nth-child(n+6){animation-delay:.26s}
+.screen > .scrim{animation:fade .25s ease both}
+.sheet{animation:slideUp .35s cubic-bezier(.22,.7,.2,1) both}
+.pop{animation:pop .3s cubic-bezier(.22,.7,.2,1) both}
+.float{animation:floaty 5s ease-in-out infinite}
+.grow{transform-origin:left center;animation:grow .9s cubic-bezier(.22,.7,.2,1) .25s both}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes slideUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+@keyframes pop{from{opacity:0;transform:translateY(4px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important}}
+</style>
+</helmet>
+<div class="screen" style="width: 390px; height: 844px; box-sizing: border-box; background: #F5F3EC; color: #1F2D2B; display: flex; flex-direction: column; position: relative; overflow: hidden">
+<div style="padding: 28px 24px 0; display: flex; flex-direction: column; gap: 4px; flex-shrink: 0">
+<span style="font-size: 16px; font-weight: 700; color: #5B6B67">Hi, Migs</span>
+<h1 style="margin: 0; font-size: 30px; font-weight: 800; line-height: 1.15">Your events</h1>
+</div>
+<div style="flex: 1; min-height: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px; padding: 0 32px; text-align: center">
+<svg class="float" width="220" height="210" viewBox="0 0 260 250" role="img" aria-label="Empty receipt with a coin">
+<circle cx="130" cy="125" r="112" fill="#DCEFEA"/>
+<g transform="rotate(-6 130 125)">
+<path d="M70 40H190V200L180 192L170 200L160 192L150 200L140 192L130 200L120 192L110 200L100 192L90 200L80 192L70 200Z" fill="#FFFFFF" stroke="#CFE3DE" stroke-width="2"/>
+<rect x="86" y="62" width="60" height="8" rx="4" fill="#CFE3DE"/>
+<rect x="86" y="86" width="88" height="6" rx="3" fill="#E7ECEA"/>
+<rect x="86" y="104" width="70" height="6" rx="3" fill="#E7ECEA"/>
+<rect x="86" y="122" width="80" height="6" rx="3" fill="#E7ECEA"/>
+</g>
+<circle cx="204" cy="184" r="28" fill="#F4B860"/>
+<circle cx="204" cy="184" r="20" fill="none" stroke="#FFFFFF" stroke-width="3"/>
+<text x="204" y="192" text-anchor="middle" font-size="22" font-weight="800" fill="#1F2D2B" font-family="Nunito, sans-serif">₱</text>
+</svg>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<h2 style="margin: 0; font-size: 26px; line-height: 1.15; font-weight: 800">No events yet</h2>
+<p style="margin: 0; font-size: 17px; line-height: 1.5; color: #5B6B67">Create an event, add your friends, and scan the receipt. We&rsquo;ll do the math.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px; align-items: center; width: 100%">
+<a href="NewEvent.dc.html" style="display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; height: 56px; border-radius: 16px; background: #1A6F63; color: #FFFFFF; font-size: 18px; font-weight: 800; box-shadow: 0 4px 14px rgba(26,111,99,0.22);"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5V19M5 12H19"/></svg>Create your first event</a>
+<a href="Backup.dc.html" style="display: flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 16px; color: #17574E; font-size: 16px; font-weight: 800">Have a backup? Restore it</a>
+</div>
+</div>
+<nav aria-label="Main" style="flex-shrink: 0; height: 76px; box-sizing: border-box; padding: 8px 16px 12px; background: #FFFFFF; border-top: 1px solid #E7ECEA; display: flex; justify-content: space-around; align-items: center; box-shadow: 0 -6px 18px rgba(31,45,43,0.05);">
+<a href="Home.dc.html" aria-current="page" style="display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 72px; min-height: 48px; color: #1A6F63; font-size: 13px; font-weight: 800"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="14" rx="3"/><path d="M8 10H16M8 14H13"/></svg>Events</a>
+<a href="Calculator.dc.html" style="display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 72px; min-height: 48px; color: #5B6B67; font-size: 13px; font-weight: 700"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="3"/><path d="M8.5 8H15.5M9 12.5H9.1M12 12.5H12.1M15 12.5H15.1M9 16.5H9.1M12 16.5H12.1M15 16.5H15.1"/></svg>Calculator</a>
+<a href="Settings.dc.html" style="display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 72px; min-height: 48px; color: #5B6B67; font-size: 13px; font-weight: 700"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 3V5.5M12 18.5V21M3 12H5.5M18.5 12H21M5.6 5.6L7.4 7.4M16.6 16.6L18.4 18.4M5.6 18.4L7.4 16.6M16.6 7.4L18.4 5.6"/></svg>Settings</a>
+</nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>

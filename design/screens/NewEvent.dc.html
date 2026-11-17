@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>New event</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'Nunito',system-ui,sans-serif}
+a{text-decoration:none}
+input{font-family:inherit}
+.ava,.avc,.avs{display:flex;align-items:center;justify-content:center;border-radius:50%;font-weight:800;font-family:'Nunito',sans-serif;color:#1F2D2B;flex-shrink:0;box-sizing:border-box}
+.ava{width:38px;height:38px;font-size:16px}
+.avc{width:26px;height:26px;font-size:12px}
+.avs{width:28px;height:28px;font-size:12px;border:2px solid #FFFFFF}
+.avs + .avs{margin-left:-8px}
+.av0{background:#1A6F63;color:#FFFFFF}.av1{background:#F4B860}.av2{background:#E58F7B}.av3{background:#8FB8DE}.av4{background:#B7A6E0}.av5{background:#9BCB9B}.av6{background:#F0A6C0}.av7{background:#D9C27A}.av8{background:#E7ECEA}
+.avoff{background:#E7ECEA;color:#5B6B67}
+a,button{transition:transform .18s ease,box-shadow .22s ease,background-color .22s ease,border-color .22s ease,filter .22s ease;-webkit-tap-highlight-color:transparent}
+a:active,button:active{transform:scale(.97)}
+a:hover,button:hover{filter:brightness(1.04)}
+.screen > *{animation:rise .5s cubic-bezier(.22,.7,.2,1) both}
+.screen > *:nth-child(1){animation-delay:.02s}
+.screen > *:nth-child(2){animation-delay:.07s}
+.screen > *:nth-child(3){animation-delay:.12s}
+.screen > *:nth-child(4){animation-delay:.17s}
+.screen > *:nth-child(5){animation-delay:.22s}
+.screen > *:nth-child(n+6){animation-delay:.26s}
+.screen > .scrim{animation:fade .25s ease both}
+.sheet{animation:slideUp .35s cubic-bezier(.22,.7,.2,1) both}
+.pop{animation:pop .3s cubic-bezier(.22,.7,.2,1) both}
+.float{animation:floaty 5s ease-in-out infinite}
+.grow{transform-origin:left center;animation:grow .9s cubic-bezier(.22,.7,.2,1) .25s both}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes slideUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+@keyframes pop{from{opacity:0;transform:translateY(4px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important}}
+</style>
+</helmet>
+<div class="screen" style="width: 390px; height: 844px; box-sizing: border-box; background: #F5F3EC; color: #1F2D2B; display: flex; flex-direction: column; position: relative; overflow: hidden">
+<div style="display: flex; align-items: center; gap: 4px; padding: 12px 12px 0; height: 56px; box-sizing: border-box">
+<a href="Home.dc.html" aria-label="Back" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5L8 12L15 19" fill="none" stroke="#1F2D2B" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+<h1 style="margin: 0; font-size: 22px; font-weight: 800">New event</h1>
+</div>
+<div style="padding: 12px 24px 0; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="ev" style="font-size: 15px; font-weight: 800">Event name</label>
+<input id="ev" type="text" value="Samgyup Night" style="box-sizing: border-box; width: 100%; height: 52px; padding: 0 16px; border: 2px solid #1A6F63; border-radius: 16px; background: #FFFFFF; font-size: 18px; font-weight: 600; color: #1F2D2B; outline: none">
+</div>
+<div style="display: flex; align-items: center; justify-content: space-between">
+<span style="font-size: 15px; font-weight: 800">Who&rsquo;s in?</span>
+<span style="padding: 4px 12px; border-radius: 12px; background: #DCEFEA; color: #17574E; font-size: 14px; font-weight: 800">{{ countText }}</span>
+</div>
+<div style="display: flex; align-items: center; gap: 8px; height: 48px; padding: 0 14px; border-radius: 14px; background: #FFFFFF; border: 2px solid #E1E8E5; box-sizing: border-box">
+<svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="#5B6B67" stroke-width="2.4"/><path d="M16 16L20 20" stroke="#5B6B67" stroke-width="2.4" stroke-linecap="round"/></svg>
+<input type="text" aria-label="Search people" placeholder="Search people" value="{{ q }}" onInput="{{ setQ }}" style="flex: 1; min-width: 0; border: 0; outline: none; background: transparent; font-size: 16px; font-weight: 600; color: #1F2D2B">
+</div>
+<div style="display: flex; gap: 8px">
+<button type="button" onClick="{{ toggleAll }}" style="display: flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 14px; border: 2px solid #D9E2DF; border-radius: 22px; background: #FFFFFF; font-family: inherit; font-size: 14px; font-weight: 800; color: #1F2D2B; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0"><path d="M5 12.5L10 17.5L19 7"/></svg>{{ allLabel }}</button>
+<button type="button" onClick="{{ pickGroup }}" style="display: flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 14px; border: 2px solid #D9E2DF; border-radius: 22px; background: #FFFFFF; font-family: inherit; font-size: 14px; font-weight: 800; color: #1F2D2B; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19C3.5 15.8 6 14 9 14S14.5 15.8 14.5 19"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14.2C18.8 14 20.5 15.6 20.5 18.5"/></svg>Saved group: Tropa</button>
+</div>
+</div>
+<div style="flex: 1; overflow-y: auto; margin-top: 8px; padding: 0 24px; display: flex; flex-direction: column">
+<sc-for list="{{ rows }}" as="p" hint-placeholder-count="8">
+<label style="display: flex; align-items: center; gap: 12px; min-height: 56px; border-bottom: 1px solid #E7ECEA; flex-shrink: 0">
+<span class="ava {{ p.cls }}" aria-hidden="true">{{ p.initial }}</span>
+<span style="flex: 1; font-size: 17px; font-weight: 700">{{ p.label }}</span>
+<input type="checkbox" aria-label="{{ p.name }}" checked="{{ p.on }}" disabled="{{ p.locked }}" onChange="{{ p.toggle }}" style="width: 24px; height: 24px; accent-color: #1A6F63">
+</label>
+</sc-for>
+<sc-if value="{{ noMatch }}" hint-placeholder-val="{{ false }}">
+<div style="padding: 24px 0; text-align: center; font-size: 15px; font-weight: 600; color: #5B6B67">No one matches that name. Use Add new person below.</div>
+</sc-if>
+</div>
+<div style="padding: 12px 24px 24px; background: #F5F3EC; border-top: 1px solid #E7ECEA; display: flex; flex-direction: column; gap: 8px">
+<button type="button" onClick="{{ openSheet }}" style="display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; border: 0; background: transparent; font-family: inherit; font-size: 16px; font-weight: 800; color: #17574E; cursor: pointer"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0"><circle cx="10" cy="8" r="3.4"/><path d="M4 19C4 15.8 6.6 14 10 14S16 15.8 16 19"/><path d="M19 8V14M16 11H22"/></svg>Add new person</button>
+<a href="ScanCam.dc.html" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 56px; border-radius: 16px; background: #1A6F63; color: #FFFFFF; font-size: 18px; font-weight: 800; box-shadow: 0 4px 14px rgba(26,111,99,0.22);">Next: add receipts</a>
+</div>
+<sc-if value="{{ showSheet }}" hint-placeholder-val="{{ false }}">
+<div class="scrim" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; background: rgba(20,33,31,0.5); display: flex; flex-direction: column; justify-content: flex-end">
+<div class="sheet" style="background: #FFFFFF; border-radius: 28px 28px 0 0; padding: 12px 24px 28px; display: flex; flex-direction: column; gap: 16px">
+<div style="align-self: center; width: 40px; height: 5px; border-radius: 3px; background: #D9E2DF"></div>
+<h2 style="margin: 0; font-size: 22px; font-weight: 800">Add new person</h2>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="newp" style="font-size: 15px; font-weight: 800">Name or nickname</label>
+<input id="newp" type="text" placeholder="e.g. Jun" value="{{ newName }}" onInput="{{ setNewName }}" style="box-sizing: border-box; width: 100%; height: 56px; padding: 0 16px; border: 2px solid #1A6F63; border-radius: 16px; background: #FFFFFF; font-size: 18px; font-weight: 600; color: #1F2D2B; outline: none">
+<span style="font-size: 14px; font-weight: 600; color: #5B6B67">Saved on your phone so you can pick them next time.</span>
+</div>
+<div style="display: flex; gap: 10px">
+<button type="button" onClick="{{ closeSheet }}" style="flex: 1; min-height: 52px; border: 2px solid #D9E2DF; border-radius: 16px; background: #FFFFFF; font-family: inherit; font-size: 17px; font-weight: 800; color: #1F2D2B; cursor: pointer">Cancel</button>
+<button type="button" onClick="{{ addPerson }}" style="flex: 1; min-height: 52px; border: 0; border-radius: 16px; background: #1A6F63; font-family: inherit; font-size: 17px; font-weight: 800; color: #FFFFFF; cursor: pointer; box-shadow: 0 4px 14px rgba(26,111,99,0.22);">Add and select</button>
+</div>
+</div>
+</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+state = {
+people: [
+{ id: 'p0', name: 'Migs', on: true },
+{ id: 'p1', name: 'Ana', on: true },
+{ id: 'p2', name: 'Ben', on: true },
+{ id: 'p3', name: 'Carla', on: true },
+{ id: 'p4', name: 'Dan', on: true },
+{ id: 'p5', name: 'Ella', on: true },
+{ id: 'p6', name: 'Fe', on: true },
+{ id: 'p7', name: 'Gio', on: true },
+{ id: 'p8', name: 'Hazel', on: false }
+],
+q: '',
+showSheet: false,
+newName: '',
+nextId: 9
+};
+renderVals() {
+const palette = ['#1A6F63', '#F4B860', '#E58F7B', '#8FB8DE', '#B7A6E0', '#9BCB9B', '#F0A6C0', '#D9C27A', '#E7ECEA'];
+const all = this.state.people;
+const q = this.state.q.trim().toLowerCase();
+const rows = all
+.map((p, i) => ({ p, i }))
+.filter((x) => q === '' || x.p.name.toLowerCase().indexOf(q) >= 0)
+.map((x) => ({
+name: x.p.name,
+label: x.i === 0 ? 'Migs (you)' : x.p.name,
+initial: x.p.name.charAt(0).toUpperCase(),
+cls: 'av' + (x.i % 9),
+on: x.p.on,
+locked: x.i === 0,
+toggle: () => this.setState({ people: all.map((y) => (y.id === x.p.id ? { ...y, on: !y.on } : y)) })
+}));
+const count = all.filter((p) => p.on).length;
+const everyone = all.every((p) => p.on);
+return {
+rows,
+noMatch: rows.length === 0,
+countText: count + ' selected',
+allLabel: everyone ? 'Clear all' : 'Select all',
+q: this.state.q,
+setQ: (e) => this.setState({ q: e.target.value }),
+toggleAll: () => this.setState({ people: all.map((p, i) => ({ ...p, on: i === 0 ? true : !everyone })) }),
+pickGroup: () => this.setState({ people: all.map((p, i) => ({ ...p, on: i < 8 })) }),
+showSheet: this.state.showSheet,
+newName: this.state.newName,
+openSheet: () => this.setState({ showSheet: true, newName: '' }),
+closeSheet: () => this.setState({ showSheet: false, newName: '' }),
+setNewName: (e) => this.setState({ newName: e.target.value }),
+addPerson: () => {
+const name = this.state.newName.trim();
+if (name === '') return;
+this.setState({
+people: all.concat([{ id: 'p' + this.state.nextId, name: name, on: true }]),
+nextId: this.state.nextId + 1,
+showSheet: false,
+newName: '',
+q: ''
+});
+}
+};
+}
+}
+</script>
+</body>
+</html>

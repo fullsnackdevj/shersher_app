@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Scan receipts</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'Nunito',system-ui,sans-serif}
+a{text-decoration:none}
+a,button{transition:transform .18s ease,box-shadow .22s ease,background-color .22s ease,border-color .22s ease,filter .22s ease;-webkit-tap-highlight-color:transparent}
+a:active,button:active{transform:scale(.97)}
+a:hover,button:hover{filter:brightness(1.04)}
+.screen > *{animation:rise .5s cubic-bezier(.22,.7,.2,1) both}
+.screen > *:nth-child(1){animation-delay:.02s}
+.screen > *:nth-child(2){animation-delay:.07s}
+.screen > *:nth-child(3){animation-delay:.12s}
+.screen > *:nth-child(4){animation-delay:.17s}
+.screen > *:nth-child(5){animation-delay:.22s}
+.screen > *:nth-child(n+6){animation-delay:.26s}
+.screen > .scrim{animation:fade .25s ease both}
+.sheet{animation:slideUp .35s cubic-bezier(.22,.7,.2,1) both}
+.pop{animation:pop .3s cubic-bezier(.22,.7,.2,1) both}
+.float{animation:floaty 5s ease-in-out infinite}
+.grow{transform-origin:left center;animation:grow .9s cubic-bezier(.22,.7,.2,1) .25s both}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes slideUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+@keyframes pop{from{opacity:0;transform:translateY(4px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important}}
+</style>
+</helmet>
+<div class="screen" style="width: 390px; height: 844px; box-sizing: border-box; background: #14211F; color: #FFFFFF; display: flex; flex-direction: column; position: relative; overflow: hidden">
+<div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 12px 0; height: 56px; box-sizing: border-box">
+<a href="NewEvent.dc.html" aria-label="Close" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6L18 18M18 6L6 18" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round"/></svg></a>
+<span style="font-size: 18px; font-weight: 800">Scan receipts</span>
+<button type="button" aria-label="Flash off" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 0; background: transparent"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3L6 13.5H11L10 21L18 10H12.5Z" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linejoin="round"/></svg></button>
+</div>
+<div style="position: relative; flex: 1; margin: 12px 24px 0; border-radius: 24px; background: #22332F; overflow: hidden; display: flex; align-items: center; justify-content: center">
+<div style="position: absolute; left: 0; right: 0; bottom: 0; height: 40%; background: #2B3F3A"></div>
+<div style="position: relative; width: 210px; height: 340px; background: #F3F1EA; border-radius: 4px; transform: rotate(-3deg); padding: 22px 20px; box-sizing: border-box; display: flex; flex-direction: column; gap: 12px">
+<div style="height: 12px; width: 90px; border-radius: 6px; background: #3C4A47; align-self: center"></div>
+<div style="height: 6px; width: 100%; border-radius: 3px; background: #C9D1CE"></div>
+<div style="height: 6px; width: 80%; border-radius: 3px; background: #C9D1CE"></div>
+<div style="height: 6px; width: 92%; border-radius: 3px; background: #C9D1CE"></div>
+<div style="height: 6px; width: 70%; border-radius: 3px; background: #C9D1CE"></div>
+<div style="height: 6px; width: 86%; border-radius: 3px; background: #C9D1CE"></div>
+<div style="height: 6px; width: 60%; border-radius: 3px; background: #C9D1CE"></div>
+<div style="height: 6px; width: 78%; border-radius: 3px; background: #C9D1CE"></div>
+<div style="flex: 1"></div>
+<div style="height: 12px; width: 70px; border-radius: 6px; background: #3C4A47; align-self: flex-end"></div>
+</div>
+<svg width="262" height="392" viewBox="0 0 262 392" aria-hidden="true" style="position: absolute"><path d="M4 44V12A8 8 0 0 1 12 4H44M218 4H250A8 8 0 0 1 258 12V44M258 348V380A8 8 0 0 1 250 388H218M44 388H12A8 8 0 0 1 4 380V348" fill="none" stroke="#F4B860" stroke-width="5" stroke-linecap="round"/></svg>
+<div style="position: absolute; top: 16px; left: 50%; transform: translateX(-50%); padding: 8px 16px; border-radius: 20px; background: rgba(20,33,31,0.82); font-size: 14px; font-weight: 700; white-space: nowrap">Align the receipt inside the frame</div>
+</div>
+<div style="display: flex; justify-content: center; padding: 14px 0 0">
+<div style="display: flex; padding: 4px; border-radius: 22px; background: #22332F">
+<span style="min-height: 44px; display: flex; align-items: center; gap: 6px; padding: 0 18px; border-radius: 22px; background: #FFFFFF; color: #14211F; font-size: 14px; font-weight: 800"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0"><path d="M4 8H7L8.5 5.5H15.5L17 8H20V18H4Z"/><circle cx="12" cy="13" r="3.5"/></svg>Scan</span>
+<a href="Review.dc.html" style="min-height: 44px; display: flex; align-items: center; gap: 6px; padding: 0 18px; border-radius: 22px; color: #C9D6D2; font-size: 14px; font-weight: 700"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0"><rect x="3" y="6" width="18" height="12" rx="3"/><path d="M7 10H7.1M11 10H11.1M15 10H15.1M8 14H16"/></svg>Type it in</a>
+</div>
+</div>
+<div style="display: flex; align-items: center; justify-content: space-between; padding: 18px 24px 30px">
+<div style="position: relative; width: 64px; height: 64px">
+<div style="position: absolute; left: 10px; top: 0; width: 44px; height: 54px; border-radius: 8px; background: #3C4A47; transform: rotate(8deg)"></div>
+<div style="position: absolute; left: 4px; top: 6px; width: 44px; height: 54px; border-radius: 8px; background: #F3F1EA; border: 2px solid #FFFFFF"></div>
+<span style="position: absolute; right: -2px; top: -4px; min-width: 24px; height: 24px; box-sizing: border-box; padding: 0 6px; border-radius: 12px; background: #F4B860; color: #14211F; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center">2</span>
+</div>
+<a href="Review.dc.html" aria-label="Take photo" style="width: 76px; height: 76px; border-radius: 50%; border: 4px solid #FFFFFF; background: transparent; padding: 0; display: flex; align-items: center; justify-content: center"><span style="width: 56px; height: 56px; border-radius: 50%; background: #FFFFFF"></span></a>
+<a href="Review.dc.html" style="display: flex; align-items: center; justify-content: center; gap: 6px; min-width: 88px; height: 48px; padding: 0 18px; box-sizing: border-box; border-radius: 24px; background: #1A6F63; color: #FFFFFF; font-size: 16px; font-weight: 800"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0"><path d="M5 12.5L10 17.5L19 7"/></svg>Done (2)</a>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>
